@@ -10,7 +10,7 @@ import UIKit
 
 class RestaurantTableViewController: UITableViewController {
     
-   
+    
     
     var restaurantNames = ["Cafe Deadend", "Homei", "Teakha", "Cafe Loisl", "Petite Oyster", "For Kee Restaurant", "Po's Atelier", "Bourke Street Bakery", "Haigh's Chocolate", "Palomino Espresso", "Upstate", "Traif", "Graham Avenue Meats", "Waffle & Wolf", "Five Leaves", "Cafe Lore", "Confessional", "Barrafina", "Donostia", "Royal Oak", "CASK Pub and Kitchen"]
     
@@ -50,11 +50,11 @@ class RestaurantTableViewController: UITableViewController {
         cell.thumbnailImageView.image = UIImage(named: restaurantImages[indexPath.row])
         
         if restaurantIsVisited[indexPath.row] {
-        cell.accessoryType = .checkmark
+            cell.accessoryType = .checkmark
         } else {
-        cell.accessoryType = .none
+            cell.accessoryType = .none
         }
-
+        
         //cell.accessoryType = restaurantIsVisited[indexPath.row] ? .checkmark : .none
         return cell
     }
@@ -66,12 +66,12 @@ class RestaurantTableViewController: UITableViewController {
         let optionMenu = UIAlertController(title: nil, message: "What do you want to do?", preferredStyle: .actionSheet)
         
         if let popoverController = optionMenu.popoverPresentationController {
-             if let cell = tableView.cellForRow(at: indexPath) {
+            if let cell = tableView.cellForRow(at: indexPath) {
                 popoverController.sourceView = cell
                 popoverController.sourceRect = cell.bounds
-                }
             }
-
+        }
+        
         
         
         // Add Call action
@@ -104,8 +104,8 @@ class RestaurantTableViewController: UITableViewController {
                 cell?.accessoryType = .none
                 self.restaurantIsVisited[indexPath.row] = false
             }
-        
-        
+            
+            
         })
         optionMenu.addAction(uncheckInAction)
         
@@ -119,7 +119,7 @@ class RestaurantTableViewController: UITableViewController {
         present(optionMenu, animated: true, completion: nil)
         
         
-         // Deselect a row
+        // Deselect a row
         tableView.deselectRow(at: indexPath, animated: false)
         
     }
@@ -128,34 +128,34 @@ class RestaurantTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
-    // Delete the row from the data source
-    self.restaurantNames.remove(at: indexPath.row)
-    self.restaurantLocations.remove(at: indexPath.row)
-    self.restaurantTypes.remove(at: indexPath.row)
-    self.restaurantIsVisited.remove(at: indexPath.row)
-    self.restaurantImages.remove(at: indexPath.row)
-
-    self.tableView.deleteRows(at: [indexPath], with: .fade)
-
-    // Call completion handler with true to indicate
-    completionHandler(true)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
+            // Delete the row from the data source
+            self.restaurantNames.remove(at: indexPath.row)
+            self.restaurantLocations.remove(at: indexPath.row)
+            self.restaurantTypes.remove(at: indexPath.row)
+            self.restaurantIsVisited.remove(at: indexPath.row)
+            self.restaurantImages.remove(at: indexPath.row)
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            // Call completion handler with true to indicate
+            completionHandler(true)
+        }
+        
+        let shareAction = UIContextualAction(style: .normal, title: "Share") { (action, sourceView, completionHandler) in
+            let defaultText = "Just checking in at " + self.restaurantNames[indexPath.row]
+            
+            let activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
+            
+            self.present(activityController, animated: true, completion: nil)
+            completionHandler(true)
+        }
+         
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, shareAction])
+        
+        return swipeConfiguration
     }
-
-    let shareAction = UIContextualAction(style: .normal, title: "Share") { (action, sourceView, completionHandler) in
-    let defaultText = "Just checking in at " + self.restaurantNames[indexPath.row]
-
-    let activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
-
-    self.present(activityController, animated: true, completion: nil)
-    completionHandler(true)
-    }
-
-    let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, shareAction])
-
-    return swipeConfiguration
-    }
-
+    
     
     
     
