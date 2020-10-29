@@ -142,7 +142,7 @@ class RestaurantTableViewController: UITableViewController {
             completionHandler(true)
         }
         
-        /*let shareAction = UIContextualAction(style: .normal, title: "Share") { (action, sourceView, completionHandler) in
+        let shareAction = UIContextualAction(style: .normal, title: "Share") { (action, sourceView, completionHandler) in
             let defaultText = "Just checking in at " + self.restaurantNames[indexPath.row]
             
             let activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
@@ -150,8 +150,15 @@ class RestaurantTableViewController: UITableViewController {
             self.present(activityController, animated: true, completion: nil)
             completionHandler(true)
         }
-    */
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+        // Set the icon and background color for the actions
+        deleteAction.backgroundColor = UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        shareAction.backgroundColor = UIColor(red: 254.0/255.0, green: 149.0/255.0, blue: 38.0/255.0, alpha: 1.0)
+        shareAction.image = UIImage(systemName: "square.and.arrow.up")
+        
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction,shareAction])
         
         return swipeConfiguration
     }
