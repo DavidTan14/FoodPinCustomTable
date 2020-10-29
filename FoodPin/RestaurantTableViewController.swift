@@ -142,7 +142,7 @@ class RestaurantTableViewController: UITableViewController {
             completionHandler(true)
         }
         
-        let shareAction = UIContextualAction(style: .normal, title: "Share") { (action, sourceView, completionHandler) in
+        /*let shareAction = UIContextualAction(style: .normal, title: "Share") { (action, sourceView, completionHandler) in
             let defaultText = "Just checking in at " + self.restaurantNames[indexPath.row]
             
             let activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
@@ -150,8 +150,8 @@ class RestaurantTableViewController: UITableViewController {
             self.present(activityController, animated: true, completion: nil)
             completionHandler(true)
         }
-         
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, shareAction])
+    */
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
         
         return swipeConfiguration
     }
